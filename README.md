@@ -1,40 +1,30 @@
 # RPG Game
 
-### UT Coding Bootcamp Week 4 Homework - RPG Game
+### UT Coding Bootcamp Week 5 Homework - Trivia Game
 
 Main game pseudocode:
-* Show list of players to choose
- * Initial positions, images, stats etc in html
+* Show start button
+ * Question/answers hidden until pressed
 
-* When player char is selected (onclick):
- * Move other chars (enemies) to enemies section
- * Change enemy backgrounds to red
+* When start is pressed:
+ * Hide start button
+ * Show question & answer buttons
+ * > Answer buttons - show border onHover
+ * Show and start 30s timer
 
-* When defender is selected (onclick):
- * Move to defender section
- * Change defender background to black
- * Enable attack button
- * Disable defender select onclick
-
-* When attack is pressed:
- * Reduce enemy HP by current attack power
- * Add base attack power to current attack power
- * If enemy HP <= 0:
- * > Remove defender from game
- * > Game text: "choose another defender"
- * > Disable attack button (game text: "nothing to attack")
- * > Enable defender select onclick
+* When answer is clicked OR timer runs out:
+ * Stop timer
+ * Indicate correct OR wrong OR out of time
+ * Show associated picture / .gif
+ * Add 1 to wins OR losses OR unanswered count
+ * Timeout 5 sec
+ * If all questions answered:
+ * > Hide Timer
+ * > Show results (wins, losses, unanswered)
+ * > Show start over button
  * Else:
- * > Reduce player HP by enemy counter attack power
- * > If player HP <= 0:
- * > > Game text: "Game over!"
- * > > Show restart button
- * > Else:
- * > > Game text: both damage values
+ * > Show next trivia question
 
-* On restart:
- * Reset all characters to initial positions (revive "dead" characters)
- * Reset all character HP and current attack power to starting values
- * Reset all character backgrounds to white
- * Disable attack button
- * Hide restart button
+* When start over is pressed:
+ * Clear results page / start over button
+ * Show first trivia question
