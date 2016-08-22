@@ -6,6 +6,7 @@ function pickSheet() {
 	switch (document.title) {
 		case "Portfolio: Hangman Game": return "https://docs.google.com/spreadsheets/d/1t91WBYfhh9FKVT2IRz8G_1cx8G1EkyfFQlk-AMPFwcQ/pubhtml";
 		case "Portfolio: RPG Game": return "https://docs.google.com/spreadsheets/d/1EPiay7SHpXI9I8G0IBa3zopHllaSjkMsuOn56e6Ejsw/pubhtml";
+		case "Portfolio: Trivia Game": return "https://docs.google.com/spreadsheets/d/1AUuyeJsK2XWLMXTRtyX2FB0kFU81dPRZX0fTC_7IgnM/pubhtml";
 	}
 }
 
