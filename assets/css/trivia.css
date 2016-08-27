@@ -1,10 +1,11 @@
-<<<<<<< HEAD
 body {
 	background: black url("../images/trivia/kramer_painting.jpg") no-repeat center top;
 }
 
 .panel {
 	background-color: rgba(0, 0, 0, 0.5);
+	height: 600px;
+	padding: 0px 50px;
 	font-family: "Gloucester MT Extra Condensed";
 	font-style: italic;
 }
@@ -50,29 +51,4 @@ body {
 }
 
 #restart {
-=======
-body {
-	background: black url("../images/starwars_background.jpg") no-repeat center top;
-}
-
-.btn:focus,.btn:active {
-   outline: none !important;
-}
-
-.top-margin {
-	margin-top: 30px;
-}
-
-.bottom-margin {
-	margin-bottom: 30px;
-}
-
-.flex-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#restart {
->>>>>>> 6637d523bbd02476ba3282de66eb8fc89c2ba93b
 	visibility: hidden;
