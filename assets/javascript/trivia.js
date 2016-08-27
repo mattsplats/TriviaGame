@@ -16,10 +16,13 @@ let game = {
 	initialize: function(data) {
 		// Store sheets data in local array
 		game.questionArr = data;
+
+		// Stop the loading text, start a new game (true for the first game)
 		game.loadingScreen("done");
 		game.newGame(true);
 	},
 
+	// Animates the loading ... until the Google Sheets data is loaded
 	loadingScreen: function(status) {
 		if (typeof this.interval == "undefined") { this.interval = setInterval(animate, 200); }
 		if (status == "done") { clearInterval(this.interval); }
@@ -38,8 +41,10 @@ let game = {
 	},
 
 	newGame: function(firstTime) {
+		// Resets win/loss/unanswered totals on new game
 		game.wins = game.losses = game.unanswered = 0;
 		
+		// Display the start button when game is first loaded, "Play again?" every other time
 		if (firstTime) {
 			$("#game").html("<br/><br/><br/>");
 			$("<button>").addClass("btn btn-lg").text("Start").attr("id","start").appendTo("#game");
@@ -47,6 +52,7 @@ let game = {
 			$("<button>").addClass("btn btn-lg").text("Play again?").attr("id","start").appendTo("#game");
 		}
 
+		// Shrink large logo, clear game text, show the first question
 		$("#start").on("click", function(event){
 			$("#logo").css("width", "200px")
 			$("#game_title").empty();
@@ -55,26 +61,31 @@ let game = {
 	},
 
 	showQuestion: function(questionNum) {
-		let currQ = game.questionArr[questionNum];
-		let timer = setInterval(countdown, 1000);
+		let currQ = game.questionArr[questionNum];  // Current question object
+		let timer = setInterval(countdown, 1000);   // Countdown timer
 		let secondsLeft = 30;
 		let gameHtml = "";
 
+		// Display the text and buttons for the current question
 		gameHtml += "<h4>Time Remaining: <span id='timer'>30</span> Seconds</h4><br/>"
 		gameHtml += "<h3>" + currQ.quesText + "</h3><br/>"
 		gameHtml += "<button id='ans_A' class='btn btn-primary btn-large bottom-margin answer' value='a'>" + currQ.ansA + "</button><br/>"
 		gameHtml += "<button id='ans_B' class='btn btn-primary btn-large bottom-margin answer' value='b'>" + currQ.ansB + "</button><br/>"
 		gameHtml += "<button id='ans_C' class='btn btn-primary btn-large bottom-margin answer' value='c'>" + currQ.ansC + "</button><br/>"
 		gameHtml += "<button id='ans_D' class='btn btn-primary btn-large bottom-margin answer' value='d'>" + currQ.ansD + "</button><br/>"
-
 		$("#game").html(gameHtml);
 
+		// Click handler for buttons
 		$(".answer").on("click", function(event) {
+			// Stop countdown timer
 			clearInterval(timer);
+
+			
 			if ($(this).val() == currQ.corrAns) { endQuestion("correct"); }
 			else { endQuestion("wrong"); }
 		});
 
+		// Countdown timer callback function
 		function countdown() {
 			secondsLeft--;
 			$("#timer").html(secondsLeft);
@@ -88,6 +99,7 @@ let game = {
 			$("#game").empty();
 			// $("#game").html("<h4>Time Remaining: <span id='timer'>" + secondsLeft + "</span> Seconds</h4>");
 
+			// Display proper text depending on correct/wrong/no answer
 			switch (outcome) {
 				case "correct":
 					$("#game").append("<h3>Correct!</h3><br/>");
@@ -105,12 +117,16 @@ let game = {
 					break;
 			}
 
+			// Show the image associated with the current question
 			$("#game").append("<img style='height: 280px;' src='" + currQ.image + "'><br/><br/>");
 
+			// Show the additional info text for the current question (if any)
 			$("#game").append("<h4>" + currQ.info + "</h4>")
 
+			// Wait 6 sec until showing the next question
 			setTimeout(nextQuestion, 6000);
 
+			// Returns the correct answer for display
 			function rightAns() {
 				switch (currQ.corrAns) {
 					case "a": return currQ.ansA;
@@ -122,6 +138,7 @@ let game = {
 		}
 		
 		function nextQuestion() {
+			// If this is the last question, end the game
 			questionNum++;
 			if (questionNum == game.questionArr.length) { endGame(); }
 			else { game.showQuestion(questionNum); }
@@ -133,6 +150,7 @@ let game = {
 			$("#game").append("<h4>Incorrect answers: " + game.losses + "<h4/>");
 			$("#game").append("<h4>Unanswered: " + game.unanswered + "<h4/><br/>");
 
+			// Show the play again button (false for play again instead of start)
 			game.newGame(false);
 		}
 	}
@@ -144,6 +162,7 @@ $(function() {
 	$("#music").prop("volume", 0.05);
 	$("#music").trigger("play");
 
+	// Start the loading animation
 	game.loadingScreen("loading");
 
     // Music toggle button
