@@ -1,1 +1,1 @@
-<?php include_once("rpg.html"); ?>
+<?php include_once("trivia.html"); ?>
